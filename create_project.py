@@ -17,12 +17,6 @@ def help():
     print('.' *70)
 
 def save_notes():
-    #print('enter your class directory')
-    #directory = input('directory>' )
-    #current = os.getcwd()
-    #current.split("\")
-    #if current[-1] != directory:
-    #    os.chdir(directory)
     print('Enter the title of your notes')
     title = input('NOTES>')
     with open('notes.txt','a') as save:
@@ -31,7 +25,14 @@ def save_notes():
         print('enter your class notes using new line')
         notes = input('NOTES>')
         f.write(notes)
+        
 def open_notes():
+    direct = str(os.getcwd())
+    direct = direct.split('\\')
+    if 'create projects' not in direct[-1]:
+        reverse_dir()
+    else:    
+        pass
     directory = input('input the title of your class> ')
     os.chdir(directory)
     print(os.getcwd())
@@ -55,11 +56,10 @@ def find_notes():
             with open('notes.txt', 'r') as notes: # save notes into a .txt in the working direcotry,,, Check
                 class_notes = notes.read()
                 class_notes = [x for x in class_notes.split(',') if x]
-  #              class_notes = class_notes.split(',')
 
                 for r in class_notes:
                     notes_file = r + '.txt'
-                    print(notes_file)
+                
                     with open(notes_file, 'r') as stinkey:
                         real = stinkey.read()
                         if key in real:
@@ -67,14 +67,12 @@ def find_notes():
                             file = file.split('\\')
                             exist = True
                             file_name = r + '.txt'
+                        if exist == True:
+                             print('The notes are in:', file[-1] )# print the directory
+                             print('The title of the notes are ', file_name)
                 reverse_dir()
-        if exist == True:
-            print('The notes are in:', file[-1] )# print the directory
-            print('The title of the notes are ', file_name)
-        else:
-            print('Notes could not be found')    
-        
-     #   for directory in 
+        if exist == False:
+            print('Notes could not be found')
     
 def reverse_dir():
     cwd = str(os.getcwd())
