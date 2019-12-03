@@ -44,39 +44,35 @@ def open_notes():
 def find_notes():
     print('enter key words you had in your notes')
     key = input('KEY> ')
+    s = '.txt'
     with open('classes.txt','r') as f:
         exist = False
         contents = f.read()
         contents = contents.split(',')
+        contents.pop()
         for i in contents:
             os.chdir(i)
             with open('notes.txt', 'r') as notes: # save notes into a .txt in the working direcotry,,, Check
                 class_notes = notes.read()
                 class_notes = [x for x in class_notes.split(',') if x]
-#                class_notes = class_notes.split(',')
+  #              class_notes = class_notes.split(',')
 
-            for r in class_notes:
-                notes_file = r + '.txt'
-                with open(notes_file, 'r') as stinkey:
-                    real = stinkey.read()
-                    if key in real:
-                        file = os.getcwd()
-                        file = file.split('\\')
-                        exist = True
-                        file_name = r + '.txt'
-            reverse_dir()
+                for r in class_notes:
+                    notes_file = r + '.txt'
+                    print(notes_file)
+                    with open(notes_file, 'r') as stinkey:
+                        real = stinkey.read()
+                        if key in real:
+                            file = os.getcwd()
+                            file = file.split('\\')
+                            exist = True
+                            file_name = r + '.txt'
+                reverse_dir()
         if exist == True:
             print('The notes are in:', file[-1] )# print the directory
             print('The title of the notes are ', file_name)
         else:
-            print('Notes could not be found')
-            
-                        
-                        
-                
-                
-            
-            
+            print('Notes could not be found')    
         
      #   for directory in 
     
@@ -96,7 +92,7 @@ def new_class(name): # add area where if it exits promt them
     else:
         print('successfully made directory',name)
         with open('classes.txt', 'a') as f:
-            f.write(name +',')
+            f.write(name + ',')
         os.chdir(name)
         print('moving to directory', name)
         print(os.getcwd())
@@ -104,6 +100,7 @@ def new_class(name): # add area where if it exits promt them
         answer = input('>>>')
         if answer == 'Y':
             save_notes()
+            reverse_dir()
         else:
             print('input error')
             print("use funtion 'new_class(<class name>)' to create a new class directory")
